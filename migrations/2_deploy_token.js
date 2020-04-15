@@ -1,13 +1,15 @@
-const EIP = artifacts.require('./EIP20.sol');
+const EIP20 = artifacts.require('./EIP20.sol');
 
 module.exports = async (deployer) => {
-  await deployer.deploy(EIP, 1000000*10**18, "Smartphone Exposure Index", 18, 'SEI');
+  await deployer.deploy(EIP20, process.env.TOKEN_SUPPLY*10**18, process.env.TOKEN_NAME, 18, process.env.TOKEN_SYMBOL);
 
   console.log(`
     ---------------------------------------------------------------
-    - Smartphone Exposure Index (SEI) TOKEN SUCCESSFULLY DEPLOYED -
+    - ${process.env.TOKEN_NAME} (${process.env.TOKEN_SYMBOL}) TOKEN SUCCESSFULLY DEPLOYED -    
+    -
+    - TOKEN SUPPLY = ${process.env.TOKEN_SUPPLY*10**18} -
     ---------------------------------------------------------------
-    - Contract address: ${EIP.address}    
+    - Contract address: ${EIP20.address}    
     ---------------------------------------------------------------
   `);
 };

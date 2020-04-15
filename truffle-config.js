@@ -17,14 +17,12 @@
  * phrase from a file you've .gitignored so it doesn't accidentally become public.
  *
  */
-
+require('dotenv').config()
 const HDWalletProvider = require('@truffle/hdwallet-provider');
-const infuraKey = "bdc65656509d44fa9498cc7d97ca2057";
 
 const fs = require('fs');
-const mnemonic = fs.readFileSync(".secret").toString().trim();
-const providerInfuraRopsten = fs.readFileSync(".providerInfuraRopsten").toString().trim();
-const providerInfuraMainNet = fs.readFileSync(".providerInfuraMainNet").toString().trim();
+
+console.log(process.env, ' --- ', process.env.PROVIDER_ROPSTEN)
 
 module.exports = {
   /**
@@ -65,7 +63,7 @@ module.exports = {
     // Faucet https://faucet.metamask.io/
     // truffle migrate -reset --compile-all --network ropsten
     ropsten: {
-      provider: () => new HDWalletProvider(mnemonic, providerInfuraRopsten),
+      provider: () => new HDWalletProvider(process.env.PRIVATE_KEY, process.env.PROVIDER_ROPSTEN),
       network_id: 3,       // Ropsten's id
       gas: 5500000,        // Ropsten has a lower block limit than mainnet
       confirmations: 2,    // # of confs to wait between deployments. (default: 0)
@@ -75,14 +73,14 @@ module.exports = {
 
     // Useful for private networks
     // private: {
-      // provider: () => new HDWalletProvider(mnemonic, `https://network.io`),
+      // provider: () => new HDWalletProvider(process.env.PRIVATE_KEY, `https://network.io`),
       // network_id: 2111,   // This network is yours, in the cloud.
       // production: true    // Treats this network as if it was a public net. (default: false)
     // }
 
     // Live Ethereum network
     live: {
-      provider: () => new HDWalletProvider(mnemonic, providerInfuraMainNet),
+      provider: () => new HDWalletProvider(process.env.PRIVATE_KEY, process.env.PROVIDER_MAINNET),
       network_id: 1,       // Ethereum's id
       gas: 2000000000,     // Ethereum gas price in WEI (1 gwei = 1000000000 wei)
     }
