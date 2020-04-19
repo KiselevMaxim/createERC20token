@@ -57,6 +57,11 @@ module.exports = {
       // from: <address>,        // Account to send txs from (default: accounts[0])
       // websockets: true        // Enable EventEmitter interface for web3 (default: false)
     // },
+    ganache: {
+      host: "127.0.0.1",     // Localhost (default: none)
+      port: 7545,            // Standard Ethereum port (default: none)
+      network_id: "5777",       // Any network (default: none)
+    },
 
     // Useful for deploying to a public network.
     // NB: It's important to wrap the provider as a function.
@@ -83,7 +88,7 @@ module.exports = {
       provider: () => new HDWalletProvider(process.env.PRIVATE_KEY, process.env.PROVIDER_MAINNET),
       network_id: 1,       // Ethereum's id
       gas: 2000000000,     // Ethereum gas price in WEI (1 gwei = 1000000000 wei)
-    }
+    }    
   },
 
   // Set default mocha options here, use special reporters etc.
